@@ -1,11 +1,3 @@
-#root {
-  /* max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-  background: green; */
-}
-
 .title {
   text-align: center;
   font-size: 40px;
@@ -57,6 +49,17 @@
 }
 
 .btnSearcher:hover {
-  background-color: #238637b9;
-  
+  background-color: #238637b9; 
+}
+
+.userInfoBox {
+  width: 60%;
+  position: absolute;
+  top: 24%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  padding: 12px 15px;
 }

@@ -7,6 +7,8 @@ import { useState } from "react";
 import { useStateProp } from "./types/ReactTypes/types";
 import { ErrorMessage } from "./components/Errors/ErrorMessage";
 import { UserView } from "./components/UserView/UserView";
+import { handleGetUserRepos } from "./controller/repos/repos_controller";
+import { ReposView } from "./components/ReposView/ReposView";
 
 type Input = {
   searcher: string;
@@ -29,13 +31,33 @@ type UserProps = {
   };
 };
 
+type Data = {
+  name: string;
+  description: string;
+};
+
+type UserReposProps = {
+  status: null | number;
+  data: null | Data[];
+};
+
 export const GitHubUser = () => {
-  const [error, setError]: useStateProp<ErrorProps> = useState({
+  const [errorUser, setErrorUser]: useStateProp<ErrorProps> = useState({
+    status: null,
+    message: null,
+    url: null,
+  });
+
+  const [errorRepos, setErrorRepos]: useStateProp<ErrorProps> = useState({
     status: null,
     message: null,
     url: null,
   });
   const [userData, setUserData]: useStateProp<UserProps> = useState({
+    status: null,
+    data: null,
+  });
+  const [userRepos, setUserRepos]: useStateProp<UserReposProps> = useState({
     status: null,
     data: null,
   });
@@ -47,20 +69,55 @@ export const GitHubUser = () => {
   const onClickSearcher = () => handleSubmit(handleSearchUser)();
 
   const handleSearchUser = async () => {
+    await handleUserData();
+    await handleUserRepos();
+  };
+
+  const handleUserData = async () => {
     const username = getValues("searcher");
     const response = await handleGetUserData(username);
 
     if ("message" in response) {
-      setError(response);
+      if (userData.data !== null) {
+        setUserData({
+          status: null,
+          data: null,
+        });
+      }
+      setErrorUser(response);
     } else {
-      if (error.status !== null) {
-        setError({
+      if (errorUser.status !== null) {
+        setErrorUser({
           status: null,
           message: null,
           url: null,
         });
       }
       setUserData(response);
+    }
+  };
+
+  const handleUserRepos = async () => {
+    const username = getValues("searcher");
+    const response = await handleGetUserRepos(username);
+
+    if ("message" in response) {
+      if (userRepos.data !== null) {
+        setUserRepos({
+          status: null,
+          data: null,
+        });
+      }
+      setErrorRepos(response);
+    } else {
+      if (errorUser.status !== null) {
+        setErrorRepos({
+          status: null,
+          message: null,
+          url: null,
+        });
+      }
+      setUserRepos(response);
     }
   };
 
@@ -72,8 +129,15 @@ export const GitHubUser = () => {
         <SearcherBtn onClick={onClickSearcher} />
       </div>
 
-      {error.status !== null && <ErrorMessage error={error} />}
-      {userData.data !== null && <UserView userData={userData} />}
+      {(errorUser.status !== null || errorRepos.status !== null) && (
+        <ErrorMessage error={errorUser} />
+      )}
+      {userData.data !== null && (
+        <div className="userInfoBox">
+          <UserView userData={userData} />
+          <ReposView userRepos={userRepos} />
+        </div>
+      )}
     </>
   );
 };
