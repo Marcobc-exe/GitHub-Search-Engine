@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Controller } from "react-hook-form";
-import { control } from "../../types/types";
+import { control } from "../../types/ReactHookFormTypes/types";
 
 type Props = {
   control: control;

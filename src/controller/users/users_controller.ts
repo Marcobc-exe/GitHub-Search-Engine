@@ -5,11 +5,15 @@ export const handleGetUserData = async (username: string) => {
   const response: AxiosResponse = await getUserData(username);
 
   if ("message" in response) {
-    console.log(response.message);
-    console.log(response.response.config.url);
-    console.log(response.response.status);
-    console.log(response.response.data.message);
+    return {
+      status: response.response.status,
+      message: response.response.data.message,
+      url: response.response.config.url,
+    };
   } else {
-    console.log(response);
+    return {
+      status: response.status,
+      data: response.data,
+    };
   }
 };
