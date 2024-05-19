@@ -1,0 +1,42 @@
+.userContainer {
+  width: 210px;
+  /* position: absolute;
+  top: 24%;
+  left: 40%;
+  transform: translateX(-50%); */
+  /* background: #000; */
+  padding-left: 10px;
+}
+
+.userAvatar {
+  width: 200px;
+  border-radius: 100px;
+}
+
+.userName {
+  font-size: 24px;
+  margin: 0;
+  line-height: 1.25;
+  margin-bottom: 5px;
+}
+
+.userBio {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 24px;
+  color: #8d96a0;
+  margin-bottom: 15px;
+}
+
+.followers, .publicRepos {
+  margin: 0;
+  color: #8d96a0;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.followersNum, .publicReposNum {
+  color: #fff;
+}

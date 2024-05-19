@@ -6,6 +6,7 @@ import { SearchUserInpt } from "./components/Input/SearchUserInpt";
 import { useState } from "react";
 import { useStateProp } from "./types/ReactTypes/types";
 import { ErrorMessage } from "./components/Errors/ErrorMessage";
+import { UserView } from "./components/UserView/UserView";
 
 type Input = {
   searcher: string;
@@ -17,12 +18,28 @@ type ErrorProps = {
   url: null | string;
 };
 
+type UserProps = {
+  status: null | number;
+  data: null | {
+    avatar_url: string;
+    login: string;
+    bio: string;
+    followers: number;
+    public_repos: number;
+  };
+};
+
 export const GitHubUser = () => {
   const [error, setError]: useStateProp<ErrorProps> = useState({
     status: null,
     message: null,
     url: null,
   });
+  const [userData, setUserData]: useStateProp<UserProps> = useState({
+    status: null,
+    data: null,
+  });
+
   const { control, getValues, handleSubmit } = useForm<Input>({
     defaultValues: { searcher: "" },
   });
@@ -43,6 +60,7 @@ export const GitHubUser = () => {
           url: null,
         });
       }
+      setUserData(response);
     }
   };
 
@@ -54,11 +72,8 @@ export const GitHubUser = () => {
         <SearcherBtn onClick={onClickSearcher} />
       </div>
 
-      {error.status !== null ? (
-        <ErrorMessage error={error} />
-      ): (
-        <></>
-      )}
+      {error.status !== null && <ErrorMessage error={error} />}
+      {userData.data !== null && <UserView userData={userData} />}
     </>
   );
 };

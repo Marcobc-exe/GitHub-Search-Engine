@@ -1,4 +1,4 @@
-import { BookBookmark } from "@phosphor-icons/react";
+import { MagnifyingGlass } from "@phosphor-icons/react";
 import { FC } from "react";
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
 export const SearcherBtn: FC<Props> = ({ onClick }) => {
   return (
     <button className="btnSearcher" onClick={onClick}>
-      <BookBookmark size={17} weight="bold" />
+      <MagnifyingGlass size={17} weight="bold" />
       Search
     </button>
   );
