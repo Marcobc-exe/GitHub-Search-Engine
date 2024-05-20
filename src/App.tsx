@@ -10,6 +10,7 @@ import { UserView } from "./components/UserView/UserView";
 import { handleGetUserRepos } from "./controller/repos/repos_controller";
 import { ReposView } from "./components/ReposView/ReposView";
 import { ErrorProps, Input, UserProps, UserReposProps } from "./types/misc";
+import { SpinLoader } from "./components/Loaders/SpinLoader";
 
 export const GitHubUser = () => {
   const [errorUser, setErrorUser]: useStateProp<ErrorProps> = useState({
@@ -32,6 +33,8 @@ export const GitHubUser = () => {
     data: null,
   });
 
+  const [loading, setLoading]: useStateProp<null | boolean> = useState(null);
+
   const { control, getValues, handleSubmit } = useForm<Input>({
     defaultValues: { searcher: "" },
   });
@@ -41,8 +44,10 @@ export const GitHubUser = () => {
 
   // Calling handlers getter user info functions
   const handleSearchUser = async () => {
+    setLoading(true);
     await handleUserData();
     await handleUserRepos();
+    setLoading(false);
   };
 
   // Getting user profile info
@@ -102,11 +107,11 @@ export const GitHubUser = () => {
         <SearchUserInpt control={control} />
         <SearcherBtn onClick={onClickSearcher} />
       </div>
-
+      <SpinLoader loading={loading} />
       {(errorUser.status !== null || errorRepos.status !== null) && (
         <ErrorMessage error={errorUser} />
       )}
-      {userData.data !== null && (
+      {userData.data !== null && userRepos.data !== null && (
         <div className="userInfoBox">
           <UserView userData={userData} />
           <ReposView userRepos={userRepos} />
