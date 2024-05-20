@@ -51,6 +51,7 @@ export const GitHubUser = () => {
     setLoading(false);
   };
 
+  // reset userData state by default
   const resetUserDataState = () => {
     if (userData.data !== null) {
       setUserData({
@@ -60,6 +61,7 @@ export const GitHubUser = () => {
     }
   };
 
+  // reset userRepos state by default
   const resetUserReposState = () => {
     if (userRepos.data !== null) {
       setUserRepos({
@@ -69,6 +71,7 @@ export const GitHubUser = () => {
     }
   };
 
+  // reset errorUser state by default
   const resetErrorUserState = () => {
     if (errorUser.status !== null) {
       setErrorUser({
@@ -79,6 +82,7 @@ export const GitHubUser = () => {
     }
   };
 
+  // reset errorRepos state by default
   const resetErrorUserRepos = () => {
     if (errorUser.status !== null) {
       setErrorRepos({
