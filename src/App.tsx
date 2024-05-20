@@ -4,12 +4,11 @@ import { handleGetUserData } from "./controller/users/users_controller";
 import { useState } from "react";
 import { useStateProp } from "./types/ReactTypes/types";
 import { ErrorMessage } from "./components/Errors/ErrorMessage";
-import { UserView } from "./components/UserView/UserView";
 import { handleGetUserRepos } from "./controller/repos/repos_controller";
-import { ReposView } from "./components/ReposView/ReposView";
 import { ErrorProps, Input, UserProps, UserReposProps } from "./types/misc";
 import { SpinLoader } from "./components/Loaders/SpinLoader";
 import { SearcherHeader } from "./components/Headers/SearcherHeader";
+import { ContainerUser } from "./components/ContainerUser/ContainerUser";
 
 export const GitHubUser = () => {
   const [errorUser, setErrorUser]: useStateProp<ErrorProps> = useState({
@@ -131,12 +130,7 @@ export const GitHubUser = () => {
         errorRepos={errorRepos}
         loading={loading}
       />
-      {userData.data !== null && userRepos.data !== null && (
-        <div className="userInfoBox">
-          <UserView userData={userData} />
-          <ReposView userRepos={userRepos} />
-        </div>
-      )}
+      <ContainerUser userData={userData} userRepos={userRepos} />
     </>
   );
 };
