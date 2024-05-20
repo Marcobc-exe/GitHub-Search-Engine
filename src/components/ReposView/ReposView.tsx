@@ -20,12 +20,18 @@ export const ReposView: FC<Props> = ({ userRepos }) => {
       {userRepos.data !== null && (
         <div className="reposContainer">
           {userRepos.data.map((repo) => (
-            <div key={repo.name} className="repoBox">
+            <div 
+              key={repo.name} 
+              className="repoBox" 
+              style={{
+                minHeight: repo.description !== null ? "100px" : "0px"
+              }}
+            >
               <div className="repoNameBox">
                 <BookBookmark size={20}/>
                 <p className="repoName">{repo.name}</p>
               </div>
-              <p>{repo.description}</p>
+              {repo.description !== null && <p>{repo.description}</p>}
             </div>
           ))}
         </div>
