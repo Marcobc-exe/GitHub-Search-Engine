@@ -1,8 +1,6 @@
 import { useForm } from "react-hook-form";
 import "./App.css";
 import { handleGetUserData } from "./controller/users/users_controller";
-import { SearcherBtn } from "./components/buttons/SearcherBtn";
-import { SearchUserInpt } from "./components/Input/SearchUserInpt";
 import { useState } from "react";
 import { useStateProp } from "./types/ReactTypes/types";
 import { ErrorMessage } from "./components/Errors/ErrorMessage";
@@ -11,6 +9,7 @@ import { handleGetUserRepos } from "./controller/repos/repos_controller";
 import { ReposView } from "./components/ReposView/ReposView";
 import { ErrorProps, Input, UserProps, UserReposProps } from "./types/misc";
 import { SpinLoader } from "./components/Loaders/SpinLoader";
+import { SearcherHeader } from "./components/Headers/SearcherHeader";
 
 export const GitHubUser = () => {
   const [errorUser, setErrorUser]: useStateProp<ErrorProps> = useState({
@@ -121,14 +120,13 @@ export const GitHubUser = () => {
   return (
     <>
       <h1 className="title">GitHub Search Engine</h1>
-      <div className="boxSearcher">
-        <SearchUserInpt control={control} />
-        <SearcherBtn onClick={onClickSearcher} />
-      </div>
+      <SearcherHeader control={control} onClickSearcher={onClickSearcher} />
       <SpinLoader loading={loading} />
-      {(errorUser.status !== null || errorRepos.status !== null) && (
-        <ErrorMessage error={errorUser} />
-      )}
+      <ErrorMessage
+        errorUser={errorUser}
+        errorRepos={errorRepos}
+        loading={loading}
+      />
       {userData.data !== null && userRepos.data !== null && (
         <div className="userInfoBox">
           <UserView userData={userData} />
