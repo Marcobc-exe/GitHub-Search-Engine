@@ -9,37 +9,7 @@ import { ErrorMessage } from "./components/Errors/ErrorMessage";
 import { UserView } from "./components/UserView/UserView";
 import { handleGetUserRepos } from "./controller/repos/repos_controller";
 import { ReposView } from "./components/ReposView/ReposView";
-
-type Input = {
-  searcher: string;
-};
-
-type ErrorProps = {
-  status: null | number;
-  message: null | string;
-  url: null | string;
-};
-
-type UserProps = {
-  status: null | number;
-  data: null | {
-    avatar_url: string;
-    login: string;
-    bio: string;
-    followers: number;
-    public_repos: number;
-  };
-};
-
-type Data = {
-  name: string;
-  description: string;
-};
-
-type UserReposProps = {
-  status: null | number;
-  data: null | Data[];
-};
+import { ErrorProps, Input, UserProps, UserReposProps } from "./types/misc";
 
 export const GitHubUser = () => {
   const [errorUser, setErrorUser]: useStateProp<ErrorProps> = useState({
@@ -66,13 +36,16 @@ export const GitHubUser = () => {
     defaultValues: { searcher: "" },
   });
 
+  // Handler submit searcher btn
   const onClickSearcher = () => handleSubmit(handleSearchUser)();
 
+  // Calling handlers getter user info functions
   const handleSearchUser = async () => {
     await handleUserData();
     await handleUserRepos();
   };
 
+  // Getting user profile info
   const handleUserData = async () => {
     const username = getValues("searcher");
     const response = await handleGetUserData(username);
@@ -97,6 +70,7 @@ export const GitHubUser = () => {
     }
   };
 
+  // Getting user public repos info
   const handleUserRepos = async () => {
     const username = getValues("searcher");
     const response = await handleGetUserRepos(username);
