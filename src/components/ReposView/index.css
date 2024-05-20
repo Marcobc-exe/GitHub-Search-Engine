@@ -1,0 +1,25 @@
+.reposContainer {
+  display: flex;
+  gap: 6px;
+  flex-direction: column;
+}
+
+.repoBox {
+  border: 1px solid #30363d;
+  border-radius: 0.375rem;
+  min-height: 120px;
+  padding: 16px;
+}
+
+.repoNameBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.repoName {
+  margin: 0;
+  padding: 0;
+  font-weight: 600;
+}
