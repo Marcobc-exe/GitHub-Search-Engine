@@ -45,9 +45,49 @@ export const GitHubUser = () => {
   // Calling handlers getter user info functions
   const handleSearchUser = async () => {
     setLoading(true);
+    resetUserDataState();
+    resetUserReposState();
     await handleUserData();
     await handleUserRepos();
     setLoading(false);
+  };
+
+  const resetUserDataState = () => {
+    if (userData.data !== null) {
+      setUserData({
+        status: null,
+        data: null,
+      });
+    }
+  };
+
+  const resetUserReposState = () => {
+    if (userRepos.data !== null) {
+      setUserRepos({
+        status: null,
+        data: null,
+      });
+    }
+  };
+
+  const resetErrorUserState = () => {
+    if (errorUser.status !== null) {
+      setErrorUser({
+        status: null,
+        message: null,
+        url: null,
+      });
+    }
+  };
+
+  const resetErrorUserRepos = () => {
+    if (errorUser.status !== null) {
+      setErrorRepos({
+        status: null,
+        message: null,
+        url: null,
+      });
+    }
   };
 
   // Getting user profile info
@@ -56,21 +96,10 @@ export const GitHubUser = () => {
     const response = await handleGetUserData(username);
 
     if ("message" in response) {
-      if (userData.data !== null) {
-        setUserData({
-          status: null,
-          data: null,
-        });
-      }
+      resetUserDataState();
       setErrorUser(response);
     } else {
-      if (errorUser.status !== null) {
-        setErrorUser({
-          status: null,
-          message: null,
-          url: null,
-        });
-      }
+      resetErrorUserState();
       setUserData(response);
     }
   };
@@ -81,21 +110,10 @@ export const GitHubUser = () => {
     const response = await handleGetUserRepos(username);
 
     if ("message" in response) {
-      if (userRepos.data !== null) {
-        setUserRepos({
-          status: null,
-          data: null,
-        });
-      }
+      resetUserReposState();
       setErrorRepos(response);
     } else {
-      if (errorUser.status !== null) {
-        setErrorRepos({
-          status: null,
-          message: null,
-          url: null,
-        });
-      }
+      resetErrorUserRepos();
       setUserRepos(response);
     }
   };
