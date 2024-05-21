@@ -10,6 +10,13 @@
     npm run dev
    ```
 ### You will probably need to set up an .env file with the token!
+## Generate a Personal Access Token
+1. Log in to GitHub: Go to GitHub and log in to your account.
+2. Navigate to Settings: Click on your profile picture in the top-right corner, and then click on "Settings."
+3. Access Developer Settings: Scroll down in the left sidebar and click on "Developer settings."
+4. Generate Token: Click on "Personal access tokens" and then on "Tokens (classic)." Click on the "Generate new token" button.
+5. Select Scopes: Give your token a description and select the scopes or permissions you need. For general usage, you might need the repo scope for repository access and user scope for user data access.
+6. Generate and Copy Token: Click the "Generate token" button. Copy the generated token immediately as it will not be shown again.
 ## Dependencies:
 - "@phosphor-icons/react": "^2.1.5"
 - "axios": "^1.6.8"
